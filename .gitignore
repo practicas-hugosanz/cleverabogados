@@ -1,0 +1,16 @@
+# Extracción de las webs antiguas: se puede regenerar descomprimiendo los ZIP,
+# así que no tiene sentido versionar 85 archivos de WordPress.
+/_src/
+
+# Ajustes locales de Claude Code
+/.claude/settings.local.json
+
+# Archivos de prueba temporales
+/_probe.html
+/_test.html
+
+# Sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

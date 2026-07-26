@@ -1,0 +1,9 @@
+# Clever Abogados SLP
+# Si se contrata un dominio distinto, actualizar la línea Sitemap.
+
+User-agent: *
+Allow: /
+
+# Nada que ocultar: la web es pública y no tiene panel ni zona privada.
+
+Sitemap: https://www.cleverabogados.es/sitemap.xml
