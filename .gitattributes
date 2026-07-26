@@ -1,0 +1,30 @@
+# Finales de línea siempre LF, tanto dentro del repositorio como al extraer los
+# archivos, sea Windows, macOS o Linux. Sin esto, tocar el proyecto desde dos
+# sistemas distintos genera diferencias fantasma en las que cambia el archivo
+# entero sin haber cambiado nada.
+* text=auto eol=lf
+
+# Binarios: que Git no los normalice ni intente sacar diferencias de texto.
+*.png          binary
+*.jpg          binary
+*.jpeg         binary
+*.webp         binary
+*.gif          binary
+*.ico          binary
+*.zip          binary
+*.pdf          binary
+*.woff         binary
+*.woff2        binary
+*.ttf          binary
+*.otf          binary
+
+# Texto declarado de forma explícita, por claridad
+*.html         text
+*.css          text
+*.js           text
+*.json         text
+*.xml          text
+*.txt          text
+*.svg          text
+*.webmanifest  text
+*.md           text
