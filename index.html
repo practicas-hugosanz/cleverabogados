@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Font Awesome: sólo el núcleo y el juego de marcas, para el icono de WhatsApp -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -60,13 +63,13 @@
   <div class="menu__bg"></div>
   <div class="menu__content">
     <nav class="menu__nav" aria-label="Menú">
-      <a href="#inicio"    class="menu__link"><em>01</em><span>Inicio</span></a>
-      <a href="#firma"     class="menu__link"><em>02</em><span>La Firma</span></a>
-      <a href="#areas"     class="menu__link"><em>03</em><span>Áreas de práctica</span></a>
-      <a href="#equipo"    class="menu__link"><em>04</em><span>Equipo</span></a>
-      <a href="#opiniones" class="menu__link"><em>05</em><span>Opiniones</span></a>
-      <a href="#despacho"  class="menu__link"><em>06</em><span>El despacho</span></a>
-      <a href="#contacto"  class="menu__link"><em>07</em><span>Contacto</span></a>
+      <a href="#inicio"    class="menu__link"><span>Inicio</span></a>
+      <a href="#firma"     class="menu__link"><span>La Firma</span></a>
+      <a href="#areas"     class="menu__link"><span>Áreas de práctica</span></a>
+      <a href="#equipo"    class="menu__link"><span>Equipo</span></a>
+      <a href="#opiniones" class="menu__link"><span>Opiniones</span></a>
+      <a href="#despacho"  class="menu__link"><span>El despacho</span></a>
+      <a href="#contacto"  class="menu__link"><span>Contacto</span></a>
     </nav>
     <div class="menu__aside">
       <div class="menu__block">
@@ -108,11 +111,12 @@
         <a href="#areas" class="btn btn--ghost">Áreas de práctica</a>
       </div>
 
-      <ul class="hero__meta" data-anim="fade">
-        <li>Alicante</li>
-        <li>Actuamos en toda España</li>
-        <li>Presencial, telefónica y online</li>
-      </ul>
+      <p class="hero__nota" data-anim="fade">
+        Estamos en Avenida Maisonnave 41, en el centro de Alicante
+        (<a href="https://maps.google.com/?q=Avenida+Maisonnave+41,+03003+Alicante"
+            target="_blank" rel="noopener">ver en el mapa</a>).
+        Si le queda lejos, también atendemos por videoconferencia.
+      </p>
     </div>
 
     <div class="hero__media">
@@ -126,20 +130,12 @@
     </div>
   </div>
 
-  <a href="#firma" class="hero__scroll" aria-label="Bajar">
-    <span class="hero__scrollLine"></span>
-    <span class="hero__scrollTxt">Scroll</span>
-  </a>
 </section>
 
 <!-- ============ LA FIRMA ============ -->
 <section class="section firma" id="firma">
   <div class="wrap">
-    <header class="secHead">
-      <p class="secNum" data-anim="fade">01</p>
-      <h2 class="secTitle" data-anim="lines">La firma</h2>
-    </header>
-
+    <!-- Sin rótulo: la frase de apertura ya dice de qué va la sección. -->
     <div class="firma__grid">
       <p class="firma__statement" data-anim="fade">
         Antes íbamos por separado.<br>
@@ -168,20 +164,22 @@
     </div>
 
     <div class="stats">
+      <!-- El valor final va en el HTML: si GSAP no carga o el visitante tiene
+           el movimiento reducido, la cifra se ve igual. GSAP la anima desde 0. -->
       <div class="stat" data-anim="fade">
-        <span class="stat__num" data-count="20" data-suffix="+">0</span>
+        <span class="stat__num" data-count="20" data-suffix="+">20+</span>
         <p>Años de ejercicio</p>
       </div>
       <div class="stat" data-anim="fade">
-        <span class="stat__num" data-count="12" data-suffix="+">0</span>
+        <span class="stat__num" data-count="12" data-suffix="+">12+</span>
         <p>Áreas del derecho</p>
       </div>
       <div class="stat" data-anim="fade">
-        <span class="stat__num" data-count="25">0</span>
+        <span class="stat__num" data-count="25">25</span>
         <p>Localidades atendidas</p>
       </div>
       <div class="stat" data-anim="fade">
-        <span class="stat__num" data-count="90" data-suffix="%">0</span>
+        <span class="stat__num" data-count="90" data-suffix="%">90%</span>
         <p>Clientes por recomendación</p>
       </div>
     </div>
@@ -189,10 +187,9 @@
 </section>
 
 <!-- ============ ÁREAS ============ -->
-<section class="section areas" id="areas">
+<section class="section section--divided areas" id="areas">
   <div class="wrap">
     <header class="secHead">
-      <p class="secNum" data-anim="fade">02</p>
       <h2 class="secTitle" data-anim="lines">Áreas de práctica</h2>
       <p class="secLead" data-anim="fade">
         Cubrimos el ciclo completo de un conflicto jurídico sin derivar a nadie
@@ -202,7 +199,6 @@
 
     <div class="areaGrid">
       <article class="area" data-anim="card">
-        <span class="area__num">01</span>
         <h3>Derecho Laboral</h3>
         <p>Despidos, reclamaciones de cantidad, vulneración de derechos fundamentales,
         modificación sustancial de condiciones, convenios colectivos e inspecciones de
@@ -211,49 +207,42 @@
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">02</span>
         <h3>Derecho Civil</h3>
         <p>Contratos, reclamaciones de cantidad, responsabilidad civil, arrendamientos
         y desahucios, propiedad horizontal y conflictos entre particulares.</p>
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">03</span>
         <h3>Familia y Sucesiones</h3>
         <p>Divorcios y separaciones, custodia y régimen de visitas, pensiones
         alimenticias, paternidad, herencias, testamentos y planificación sucesoria.</p>
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">04</span>
         <h3>Derecho Penal</h3>
         <p>Defensa y acusación en todo tipo de procedimientos, con especialización en
         violencia de género y menores. Acompañamiento en cada fase del proceso.</p>
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">05</span>
         <h3>Derecho Bancario</h3>
         <p>Cláusulas suelo, IRPH, comisiones de apertura, gastos hipotecarios y tarjetas
         revolving. Anulación de intereses abusivos y recuperación de cantidades.</p>
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">06</span>
         <h3>Mercantil y Concursal</h3>
         <p>Contratación mercantil, reestructuración empresarial, concurso de acreedores,
         Ley de Segunda Oportunidad y propiedad intelectual e industrial.</p>
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">07</span>
         <h3>Contencioso-Administrativo</h3>
         <p>Recursos frente a la administración pública, sanciones, licencias, urbanismo
         y responsabilidad patrimonial.</p>
       </article>
 
       <article class="area" data-anim="card">
-        <span class="area__num">08</span>
         <h3>Mediación</h3>
         <p>Mediación familiar, penal y de tráfico con mediadora acreditada en el Ilustre
         Colegio de Abogados de Alicante. Acuerdos sin desgaste judicial.</p>
@@ -263,28 +252,27 @@
     <div class="services">
       <h3 class="services__title" data-anim="fade">Asuntos que resolvemos con más frecuencia</h3>
       <ul class="services__list">
-        <li data-anim="row"><span>01</span><h4>Divorcios y custodia</h4><p>Separación, pensión alimenticia, paternidad y régimen de visitas.</p></li>
-        <li data-anim="row"><span>02</span><h4>Despido improcedente</h4><p>Impugnación, cálculo de indemnización y negociación previa.</p></li>
-        <li data-anim="row"><span>03</span><h4>Inspecciones de trabajo</h4><p>Estrategia de defensa y representación ante la administración.</p></li>
-        <li data-anim="row"><span>04</span><h4>Tarjetas revolving</h4><p>Anulación de intereses usurarios y recuperación de lo pagado.</p></li>
-        <li data-anim="row"><span>05</span><h4>Herencias y testamentos</h4><p>Tramitación, partición y resolución de conflictos entre herederos.</p></li>
-        <li data-anim="row"><span>06</span><h4>Accidentes de tráfico</h4><p>Indemnización por daños personales y materiales con peritación.</p></li>
-        <li data-anim="row"><span>07</span><h4>Negligencias médicas</h4><p>Reclamación con valoración corporal y psicológica por perito.</p></li>
-        <li data-anim="row"><span>08</span><h4>Cláusulas abusivas</h4><p>Cláusula suelo, IRPH, comisión de apertura y gastos hipotecarios.</p></li>
-        <li data-anim="row"><span>09</span><h4>Arrendamientos y desahucios</h4><p>Contratos, impagos y conflictos entre inquilino y propietario.</p></li>
-        <li data-anim="row"><span>10</span><h4>Seguridad Social</h4><p>Incapacidades, pensiones, subsidios y prestaciones por desempleo.</p></li>
-        <li data-anim="row"><span>11</span><h4>Comunidades de propietarios</h4><p>Morosos, irregularidades urbanísticas y Ley de Propiedad Horizontal.</p></li>
-        <li data-anim="row"><span>12</span><h4>Segunda oportunidad</h4><p>Exoneración de deuda para particulares y autónomos sobreendeudados.</p></li>
+        <li data-anim="row"><h4>Divorcios y custodia</h4><p>Separación, pensión alimenticia, paternidad y régimen de visitas.</p></li>
+        <li data-anim="row"><h4>Despido improcedente</h4><p>Impugnación, cálculo de indemnización y negociación previa.</p></li>
+        <li data-anim="row"><h4>Inspecciones de trabajo</h4><p>Estrategia de defensa y representación ante la administración.</p></li>
+        <li data-anim="row"><h4>Tarjetas revolving</h4><p>Anulación de intereses usurarios y recuperación de lo pagado.</p></li>
+        <li data-anim="row"><h4>Herencias y testamentos</h4><p>Tramitación, partición y resolución de conflictos entre herederos.</p></li>
+        <li data-anim="row"><h4>Accidentes de tráfico</h4><p>Indemnización por daños personales y materiales con peritación.</p></li>
+        <li data-anim="row"><h4>Negligencias médicas</h4><p>Reclamación con valoración corporal y psicológica por perito.</p></li>
+        <li data-anim="row"><h4>Cláusulas abusivas</h4><p>Cláusula suelo, IRPH, comisión de apertura y gastos hipotecarios.</p></li>
+        <li data-anim="row"><h4>Arrendamientos y desahucios</h4><p>Contratos, impagos y conflictos entre inquilino y propietario.</p></li>
+        <li data-anim="row"><h4>Seguridad Social</h4><p>Incapacidades, pensiones, subsidios y prestaciones por desempleo.</p></li>
+        <li data-anim="row"><h4>Comunidades de propietarios</h4><p>Morosos, irregularidades urbanísticas y Ley de Propiedad Horizontal.</p></li>
+        <li data-anim="row"><h4>Segunda oportunidad</h4><p>Exoneración de deuda para particulares y autónomos sobreendeudados.</p></li>
       </ul>
     </div>
   </div>
 </section>
 
 <!-- ============ EQUIPO ============ -->
-<section class="section equipo" id="equipo">
+<section class="section section--divided equipo" id="equipo">
   <div class="wrap">
     <header class="secHead">
-      <p class="secNum" data-anim="fade">03</p>
       <h2 class="secTitle" data-anim="lines">El equipo</h2>
       <p class="secLead" data-anim="fade">
         Dos socios directores, dos especializaciones complementarias y un mismo
@@ -310,9 +298,18 @@
             «La honestidad y la transparencia son la clave de una defensa eficaz.
             Mi objetivo es un asesoramiento cercano, sin sorpresas y con su interés por delante.»
           </p>
-          <ul class="member__tags">
-            <li>Civil</li><li>Penal</li><li>Familia</li><li>Mediación</li>
-          </ul>
+          <details class="areasDrop">
+            <summary>
+              <span>Áreas en las que trabaja</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.4L5.6 9 7 7.6l5 5 5-5L18.4 9z"/></svg>
+            </summary>
+            <div class="areasDrop__wrap"><ul class="areasDrop__list">
+              <li><strong>Derecho civil</strong> Contratos, reclamaciones de cantidad, arrendamientos y propiedad horizontal.</li>
+              <li><strong>Derecho penal</strong> Defensa y acusación, con especialización en violencia de género y menores.</li>
+              <li><strong>Familia y sucesiones</strong> Divorcios, custodia, pensiones, herencias y testamentos.</li>
+              <li><strong>Mediación</strong> Conflictos familiares, penales y de tráfico. Mediadora acreditada en el ICALI.</li>
+            </ul></div>
+          </details>
         </div>
       </article>
 
@@ -333,9 +330,18 @@
             «Conocer el sector del cliente es la mitad de la defensa. La otra mitad es
             estar disponible cuando llama.»
           </p>
-          <ul class="member__tags">
-            <li>Laboral</li><li>Seguridad Social</li><li>Empresa</li><li>Transporte</li>
-          </ul>
+          <details class="areasDrop">
+            <summary>
+              <span>Áreas en las que trabaja</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.4L5.6 9 7 7.6l5 5 5-5L18.4 9z"/></svg>
+            </summary>
+            <div class="areasDrop__wrap"><ul class="areasDrop__list">
+              <li><strong>Derecho laboral</strong> Despidos, reclamaciones de cantidad, conflicto colectivo y convenios.</li>
+              <li><strong>Seguridad Social</strong> Incapacidades, pensiones, subsidios y prestaciones por desempleo.</li>
+              <li><strong>Defensa de la empresa</strong> Inspecciones de trabajo y representación en litigios laborales.</li>
+              <li><strong>Mensajería y transporte</strong> Sector en el que lleva más de una década asesorando.</li>
+            </ul></div>
+          </details>
         </div>
       </article>
     </div>
@@ -346,7 +352,6 @@
 <section class="section why">
   <div class="wrap">
     <header class="secHead secHead--light">
-      <p class="secNum" data-anim="fade">04</p>
       <h2 class="secTitle" data-anim="lines">Cómo trabajamos</h2>
     </header>
 
@@ -387,12 +392,7 @@
 <!-- ============ OPINIONES (estilo Google) ============ -->
 <section class="section reviews" id="opiniones">
   <div class="wrap">
-    <header class="secHead">
-      <p class="secNum" data-anim="fade">05</p>
-      <h2 class="secTitle" data-anim="lines">Opiniones de clientes</h2>
-    </header>
-
-    <!-- resumen tipo ficha de Google -->
+    <!-- Sin rótulo: la ficha de Google que viene debajo ya se identifica sola. -->
     <div class="gsum" data-anim="fade">
       <div class="gsum__brand">
         <svg class="gLogo" viewBox="0 0 48 48" aria-hidden="true">
@@ -542,7 +542,6 @@
 <section class="section office" id="despacho">
   <div class="wrap">
     <header class="secHead">
-      <p class="secNum" data-anim="fade">06</p>
       <h2 class="secTitle" data-anim="lines">El despacho</h2>
     </header>
 
@@ -588,34 +587,34 @@
 
       <div class="zones__grid">
         <div class="zone" data-anim="row">
-          <h4><span>01</span> L'Alacantí</h4>
+          <h4>L'Alacantí</h4>
           <ul>
             <li>Alicante</li><li>San Vicente del Raspeig</li><li>Mutxamel</li>
             <li>El Campello</li><li>La Vila Joiosa</li>
           </ul>
         </div>
         <div class="zone" data-anim="row">
-          <h4><span>02</span> Baix Vinalopó y Vega Baja</h4>
+          <h4>Baix Vinalopó y Vega Baja</h4>
           <ul>
             <li>Elche</li><li>Crevillente</li><li>Santa Pola</li>
             <li>Guardamar del Segura</li><li>Torrevieja</li><li>Orihuela</li>
           </ul>
         </div>
         <div class="zone" data-anim="row">
-          <h4><span>03</span> Vinalopó Medio y Alto</h4>
+          <h4>Vinalopó Medio y Alto</h4>
           <ul>
             <li>Elda</li><li>Petrer</li><li>Aspe</li><li>Villena</li>
           </ul>
         </div>
         <div class="zone" data-anim="row">
-          <h4><span>04</span> Marina Alta y Marina Baixa</h4>
+          <h4>Marina Alta y Marina Baixa</h4>
           <ul>
             <li>Benidorm</li><li>La Nucía</li><li>Altea</li><li>Calpe</li>
             <li>Benissa</li><li>Teulada-Moraira</li><li>Xàbia</li><li>Dénia</li>
           </ul>
         </div>
         <div class="zone" data-anim="row">
-          <h4><span>05</span> L'Alcoià y El Comtat</h4>
+          <h4>L'Alcoià y El Comtat</h4>
           <ul>
             <li>Alcoy</li><li>Ibi</li>
           </ul>
@@ -630,7 +629,6 @@
   <div class="wrap">
     <div class="contact__grid">
       <div class="contact__intro">
-        <p class="secNum" data-anim="fade">07</p>
         <h2 class="secTitle" data-anim="lines">Cuéntenos su caso</h2>
         <p class="secLead" data-anim="fade">
           Escríbanos sin ningún compromiso. Le respondemos en menos de 24 horas
@@ -643,6 +641,13 @@
           <li><span>Email</span><a href="mailto:info@cleverabogados.es">info@cleverabogados.es</a></li>
           <li><span>Despacho</span>Avda. Maisonnave 41, 6º C-D, Alicante</li>
         </ul>
+
+        <a class="btn btn--wa" data-anim="fade"
+           href="https://wa.me/34659593544?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20mi%20caso%20con%20Clever%20Abogados."
+           target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          Escríbenos por WhatsApp
+        </a>
       </div>
 
       <form class="form" id="form" novalidate>
@@ -660,17 +665,22 @@
         </div>
         <div class="field" data-anim="row">
           <label for="materia">Materia</label>
-          <select id="materia" name="materia">
-            <option>Derecho Laboral</option>
-            <option>Derecho Civil</option>
-            <option>Familia y Sucesiones</option>
-            <option>Derecho Penal</option>
-            <option>Derecho Bancario</option>
-            <option>Mercantil y Concursal</option>
-            <option>Contencioso-Administrativo</option>
-            <option>Mediación</option>
-            <option>Otra consulta</option>
-          </select>
+          <!-- Sin JS se ve el desplegable nativo; con JS se sustituye por una
+               lista propia, porque las <option> del sistema no se pueden
+               maquetar en la mayoría de navegadores. -->
+          <div class="selectWrap">
+            <select id="materia" name="materia">
+              <option>Derecho Laboral</option>
+              <option>Derecho Civil</option>
+              <option>Familia y Sucesiones</option>
+              <option>Derecho Penal</option>
+              <option>Derecho Bancario</option>
+              <option>Mercantil y Concursal</option>
+              <option>Contencioso-Administrativo</option>
+              <option>Mediación</option>
+              <option>Otra consulta</option>
+            </select>
+          </div>
         </div>
         <div class="field field--full" data-anim="row">
           <label for="mensaje">Cuéntenos brevemente su caso</label>
@@ -678,7 +688,7 @@
         </div>
         <div class="field field--full check" data-anim="row">
           <input type="checkbox" id="rgpd" name="rgpd" required>
-          <label for="rgpd">He leído y acepto el <a href="#">aviso legal y la política de privacidad</a>.</label>
+          <label for="rgpd">He leído y acepto el <a href="aviso-legal.html">aviso legal</a> y la <a href="politica-privacidad.html">política de privacidad</a>.</label>
         </div>
         <div class="field field--full" data-anim="row">
           <button type="submit" class="btn btn--full">Enviar consulta</button>
@@ -738,14 +748,23 @@
     <div class="footer__bottom">
       <p>&copy; <span id="year">2026</span> Clever Abogados SLP · CIF B21965603 · Inscrita en el Registro Mercantil de Alicante</p>
       <nav class="footer__legal" aria-label="Legal">
-        <a href="#">Aviso legal</a>
-        <a href="#">Política de privacidad</a>
-        <a href="#">Política de cookies</a>
-        <a href="#">Accesibilidad</a>
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="politica-privacidad.html">Política de privacidad</a>
+        <a href="politica-cookies.html">Política de cookies</a>
+        <a href="accesibilidad.html">Accesibilidad</a>
+        <a href="#" data-ck-abrir>Configurar cookies</a>
       </nav>
     </div>
   </div>
 </footer>
+
+<!-- Botones flotantes, en esquinas opuestas. Ambos se retiran al entrar en la
+     sección de contacto, que ya tiene su propio WhatsApp y su formulario. -->
+<a class="waFloat"
+   href="https://wa.me/34659593544?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20mi%20caso%20con%20Clever%20Abogados."
+   target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+</a>
 
 <a href="#inicio" class="toTop" id="toTop" aria-label="Volver arriba">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 7-1.4 1.4L13 8.8V19h-2V8.8l-4.6 4.6L5 12z"/></svg>
@@ -754,5 +773,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/cookies.js"></script>
 </body>
 </html>

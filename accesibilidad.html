@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accesibilidad | Clever Abogados</title>
+<meta name="description" content="Declaración de accesibilidad del sitio web de Clever Abogados SLP: medidas adoptadas, limitaciones conocidas y canal de contacto.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="legalNav">
+  <div class="legalNav__inner">
+    <a href="index.html" aria-label="Clever Abogados — inicio"><img src="img/logo.png" alt="Clever Abogados"></a>
+    <a href="index.html" class="lnk">Volver al inicio</a>
+  </div>
+</header>
+
+<main class="legal">
+  <div class="wrap">
+    <p class="legal__kicker">Información legal</p>
+    <h1>Declaración de accesibilidad</h1>
+    <p class="legal__fecha">Última actualización: julio de 2026</p>
+
+    <div class="legal__cuerpo">
+      <nav class="legal__indice" aria-label="Índice">
+        <h2>En esta página</h2>
+        <ol>
+          <li><a href="#compromiso">1. Nuestro compromiso</a></li>
+          <li><a href="#alcance">2. Alcance y marco normativo</a></li>
+          <li><a href="#medidas">3. Medidas adoptadas</a></li>
+          <li><a href="#teclado">4. Manejo con teclado</a></li>
+          <li><a href="#limitaciones">5. Limitaciones conocidas</a></li>
+          <li><a href="#ajustes">6. Ajustes de su dispositivo</a></li>
+          <li><a href="#contacto">7. Comunicar un problema</a></li>
+        </ol>
+      </nav>
+
+      <div class="legal__texto">
+
+        <section id="compromiso">
+          <h2>1. Nuestro compromiso</h2>
+          <p>Clever Abogados quiere que cualquier persona pueda consultar esta web y
+          ponerse en contacto con el despacho, con independencia de sus capacidades o de
+          la tecnología que utilice. Acudir a un abogado suele coincidir con un momento
+          difícil, y lo último que debe hacer una web es añadir un obstáculo más.</p>
+          <p>Nos marcamos como objetivo el nivel <strong>AA de las Pautas de
+          Accesibilidad para el Contenido Web (WCAG) 2.1</strong>, referencia recogida en
+          la norma europea EN 301 549.</p>
+        </section>
+
+        <section id="alcance">
+          <h2>2. Alcance y marco normativo</h2>
+          <p>Esta declaración se aplica al sitio web de Clever Abogados SLP y a todas sus
+          páginas.</p>
+          <p>Conviene precisar el marco: el Real Decreto 1112/2018 sobre accesibilidad de
+          los sitios web del sector público <strong>no obliga a un despacho privado</strong>.
+          Publicamos esta declaración de forma <strong>voluntaria</strong>, por
+          coherencia con la manera en que entendemos el servicio y porque consideramos
+          que la accesibilidad es exigible a cualquiera que ofrezca información al
+          público.</p>
+          <p>Le informamos con transparencia de un punto: <strong>no se ha realizado
+          todavía una auditoría externa de accesibilidad</strong>. Las medidas descritas
+          a continuación se han aplicado durante el desarrollo y verificado internamente,
+          pero no podemos declarar conformidad plena mientras no exista una revisión
+          independiente.</p>
+        </section>
+
+        <section id="medidas">
+          <h2>3. Medidas adoptadas</h2>
+          <ul>
+            <li><strong>Estructura semántica.</strong> La página utiliza marcado HTML
+            correcto —encabezados jerarquizados, listas, regiones de navegación,
+            contenido principal y pie— para que los lectores de pantalla puedan
+            recorrerla de forma ordenada.</li>
+            <li><strong>Contraste.</strong> La combinación de azul corporativo sobre
+            fondo hueso supera holgadamente la relación de contraste 4,5:1 exigida para
+            texto normal en el nivel AA.</li>
+            <li><strong>Textos alternativos.</strong> Las imágenes con contenido
+            informativo llevan descripción; las puramente decorativas se ocultan a las
+            ayudas técnicas para no generar ruido.</li>
+            <li><strong>Formularios etiquetados.</strong> Cada campo tiene su etiqueta
+            asociada, los errores se comunican por texto y no sólo por color, y el
+            desplegable de materia se ha construido con roles ARIA para que se anuncie
+            correctamente.</li>
+            <li><strong>Sin zoom forzado.</strong> Los campos del formulario usan un
+            tamaño de letra que evita el ampliado automático en móviles, y el sitio se
+            deja ampliar hasta el 200% sin pérdida de contenido.</li>
+            <li><strong>Movimiento reducido.</strong> Si su sistema tiene activada la
+            opción «reducir movimiento», las animaciones se desactivan automáticamente.</li>
+            <li><strong>Foco visible.</strong> El elemento activo se señala con un
+            contorno claro al navegar con teclado.</li>
+            <li><strong>Enlaces externos</strong> identificados y abiertos de forma
+            previsible.</li>
+          </ul>
+        </section>
+
+        <section id="teclado">
+          <h2>4. Manejo con teclado</h2>
+          <p>Todo el sitio puede utilizarse sin ratón:</p>
+          <div class="legal__tablaScroll">
+            <table class="legal__tabla">
+              <thead><tr><th>Elemento</th><th>Cómo se maneja</th></tr></thead>
+              <tbody>
+                <tr><td>Navegación general</td><td><strong>Tab</strong> avanza, <strong>Mayús + Tab</strong> retrocede, <strong>Intro</strong> activa</td></tr>
+                <tr><td>Menú desplegable</td><td><strong>Intro</strong> abre y cierra; <strong>Esc</strong> cierra</td></tr>
+                <tr><td>Áreas de cada abogado</td><td><strong>Intro</strong> o <strong>Espacio</strong> despliega y pliega</td></tr>
+                <tr><td>Campo «Materia»</td><td><strong>Intro</strong> o <strong>flechas</strong> abren; <strong>↑ ↓</strong> recorren; <strong>Inicio</strong> y <strong>Fin</strong> saltan al extremo; <strong>Intro</strong> selecciona; <strong>Esc</strong> cierra</td></tr>
+                <tr><td>Carrusel de reseñas</td><td>Botones anterior y siguiente accesibles con Tab, y <strong>← →</strong> cuando el carrusel tiene el foco</td></tr>
+                <tr><td>Aviso de cookies</td><td>Accesible con Tab; <strong>Esc</strong> cierra el panel de configuración</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="limitaciones">
+          <h2>5. Limitaciones conocidas</h2>
+          <p>Preferimos enumerarlas antes que dar una imagen más favorable de la real:</p>
+          <ul>
+            <li><strong>Sin auditoría independiente.</strong> No podemos declarar
+            conformidad certificada con WCAG 2.1 AA.</li>
+            <li><strong>Arrastre del carrusel.</strong> Deslizar las reseñas con el dedo o
+            el ratón no tiene equivalente por teclado, aunque sí lo tienen los botones de
+            anterior y siguiente, que cumplen la misma función.</li>
+            <li><strong>Reseñas de terceros.</strong> Los textos de las opiniones son
+            citas literales de sus autores y no podemos modificar su redacción para
+            mejorar su legibilidad.</li>
+            <li><strong>Recursos externos.</strong> Las fuentes y los iconos se cargan
+            desde servidores de terceros. Si el visitante los bloquea, algunos iconos
+            podrían no mostrarse; el contenido sigue siendo legible en todos los casos.</li>
+            <li><strong>Documentos adjuntos.</strong> Si en el futuro se publican
+            documentos PDF, no podemos garantizar de antemano que estén etiquetados.</li>
+          </ul>
+        </section>
+
+        <section id="ajustes">
+          <h2>6. Ajustes de su dispositivo</h2>
+          <p>La web respeta la configuración de su sistema. Puede resultarle útil:</p>
+          <ul>
+            <li><strong>Ampliar el tamaño</strong> con <strong>Ctrl + +</strong>
+            (<strong>Cmd + +</strong> en Mac); el diseño se reajusta sin cortar contenido.</li>
+            <li><strong>Reducir el movimiento</strong> desde las opciones de accesibilidad
+            de Windows, macOS, Android o iOS: detendremos las animaciones.</li>
+            <li><strong>Modo de lectura</strong> del navegador, compatible gracias a la
+            estructura semántica de las páginas.</li>
+          </ul>
+        </section>
+
+        <section id="contacto">
+          <h2>7. Comunicar un problema</h2>
+          <p>Si encuentra una barrera que le impide consultar cualquier contenido, o
+          necesita que le facilitemos una información en otro formato, escríbanos y lo
+          resolveremos:</p>
+          <div class="legal__datos">
+            <dl>
+              <div><dt>Correo electrónico</dt><dd>info@cleverabogados.es</dd></div>
+              <div><dt>Teléfono</dt><dd>+34 966 300 232</dd></div>
+              <div><dt>Dirección</dt><dd>Avenida Maisonnave 41, 6º C-D<br>03003 Alicante</dd></div>
+            </dl>
+          </div>
+          <p>Indíquenos, si puede, la página concreta y el problema encontrado.
+          Procuraremos responderle en un plazo máximo de veinte días hábiles.</p>
+
+          <div class="legal__pendiente">
+            <p><strong>Recomendación antes de publicar:</strong> esta declaración es
+            honesta con el estado actual, pero conviene encargar una revisión de
+            accesibilidad real antes de darla por definitiva. Si el despacho llega a
+            prestar servicios sujetos a la Ley 11/2023 (que traspone la Directiva europea
+            de accesibilidad, aplicable desde junio de 2025 a determinados servicios
+            prestados a consumidores por vía electrónica), la accesibilidad dejaría de
+            ser voluntaria y habría que revisar el alcance.</p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__bottom">
+      <p>&copy; <span id="year">2026</span> Clever Abogados SLP · CIF B21965603 · Avda. Maisonnave 41, 6º C-D, 03003 Alicante</p>
+      <nav class="footer__legal" aria-label="Legal">
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="politica-privacidad.html">Política de privacidad</a>
+        <a href="politica-cookies.html">Política de cookies</a>
+        <a href="accesibilidad.html">Accesibilidad</a>
+        <a href="#" data-ck-abrir>Configurar cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cookies.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
