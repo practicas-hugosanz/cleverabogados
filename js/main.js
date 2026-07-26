@@ -36,6 +36,7 @@
     initNavState();
     initMenu(null);
     initSlider(null);
+    initSelect();
     initForm();
     initToTop();
     return;
@@ -105,11 +106,9 @@
       .fromTo('.hero__img', { scale: 1.22 }, { scale: 1, duration: 1.6, ease: 'expo.out' }, '<')
       .fromTo('.hero__badge', { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: .7 }, '-=.6')
 
-      .fromTo('.hero__lead, .hero__cta, .hero__meta',
+      .fromTo('.hero__lead, .hero__cta, .hero__nota',
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: .8, stagger: .1 }, '-=.85')
-
-      .fromTo('.hero__scroll', { opacity: 0 }, { opacity: 1, duration: .6 }, '-=.4');
+        { opacity: 1, y: 0, duration: .8, stagger: .1 }, '-=.85');
 
     return tl;
   }
@@ -185,7 +184,6 @@
 
     var bg    = $('.menu__bg', menu);
     var links = $$('.menu__link span', menu);
-    var nums  = $$('.menu__link em', menu);
     var aside = $$('.menu__block', menu);
     var open  = false;
 
@@ -252,9 +250,6 @@
       .fromTo(links,
         { yPercent: 115, opacity: 0 },
         { yPercent: 0, opacity: 1, duration: .75, ease: 'expo.out', stagger: .06 }, '-=.45')
-      .fromTo(nums,
-        { opacity: 0, x: -10 },
-        { opacity: 1, x: 0, duration: .5, stagger: .05 }, '-=.7')
       .fromTo(aside,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: .6, stagger: .08 }, '-=.45');
@@ -295,7 +290,46 @@
   }
 
   /* ================================================================== */
-  /*  5. CARRUSEL DE RESEÑAS                                            */
+  /*  5. DESPLEGABLE DE ÁREAS DEL EQUIPO                                */
+  /* ================================================================== */
+  /* <details> abre y cierra de golpe: interceptamos la pulsación para animar
+     la altura en los dos sentidos. Al cerrar hay que animar primero y quitar
+     el atributo `open` después, porque en cuanto se quita el navegador oculta
+     el contenido y no quedaría nada que animar. */
+  $$('.areasDrop').forEach(function (det) {
+    var sum  = $('summary', det);
+    var wrap = $('.areasDrop__wrap', det);
+    if (!sum || !wrap) return;
+    var ocupado = false;
+
+    sum.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (ocupado) return;
+      ocupado = true;
+
+      if (!det.open) {
+        det.open = true;
+        gsap.fromTo(wrap,
+          { height: 0, opacity: 0 },
+          {
+            height: 'auto', opacity: 1, duration: .5, ease: 'power2.out',
+            onComplete: function () { gsap.set(wrap, { height: 'auto' }); ocupado = false; }
+          });
+      } else {
+        gsap.to(wrap, {
+          height: 0, opacity: 0, duration: .4, ease: 'power2.inOut',
+          onComplete: function () {
+            det.open = false;
+            gsap.set(wrap, { height: 'auto', opacity: 1 });
+            ocupado = false;
+          }
+        });
+      }
+    });
+  });
+
+  /* ================================================================== */
+  /*  6. CARRUSEL DE RESEÑAS                                            */
   /* ================================================================== */
   initSlider(gsap);
 
@@ -345,8 +379,12 @@
     /* la última página se alinea a la derecha en vez de dejar hueco */
     function offsetFor(p) { return Math.min(p * perView * step, maxX); }
 
+    /* El carrusel da la vuelta: pasada la última reseña vuelve a la primera,
+       y desde la primera hacia atrás salta a la última. */
     function goTo(p, animated) {
-      page = Math.max(0, Math.min(p, pages - 1));
+      if (p < 0) p = pages - 1;
+      else if (p > pages - 1) p = 0;
+      page = p;
       setX(-offsetFor(page), animated !== false);
       sync();
     }
@@ -374,8 +412,12 @@
           d.setAttribute('aria-selected', String(i === page));
         });
       }
-      if (prevBtn) prevBtn.disabled = page === 0;
-      if (nextBtn) nextBtn.disabled = page >= pages - 1;
+      /* Las flechas nunca se desactivan: siempre hay adónde ir. Si todo cabe
+         en una pantalla, escondemos los controles enteros. */
+      var solaPagina = pages <= 1;
+      root.classList.toggle('slider--single', solaPagina);
+      if (prevBtn) prevBtn.disabled = false;
+      if (nextBtn) nextBtn.disabled = false;
     }
 
     if (prevBtn) prevBtn.addEventListener('click', function () { goTo(page - 1, true); });
@@ -478,6 +520,9 @@
     var suffix = el.dataset.suffix || '';
     var obj = { v: 0 };
 
+    /* el HTML ya trae la cifra final: la ponemos a cero justo antes de contar */
+    el.textContent = '0' + suffix;
+
     gsap.to(obj, {
       v: target, duration: 1.8, ease: 'power2.out',
       onUpdate: function () { el.textContent = Math.round(obj.v) + suffix; },
@@ -499,9 +544,25 @@
   }
 
   /* ================================================================== */
-  /*  9. VOLVER ARRIBA                                                  */
+  /*  9. BOTONES FLOTANTES                                              */
   /* ================================================================== */
   initToTop();
+
+  /* Al entrar en contacto retiramos los flotantes: la sección ya ofrece
+     WhatsApp, teléfono y formulario, y el botón verde taparía «Enviar». */
+  (function ocultarFlotantesEnContacto() {
+    var contacto = $('#contacto');
+    if (!contacto) return;
+
+    ScrollTrigger.create({
+      trigger: contacto,
+      start: 'top 75%',
+      end: 'bottom top',
+      onToggle: function (self) {
+        document.body.classList.toggle('contact-visible', self.isActive);
+      }
+    });
+  })();
 
   function initToTop() {
     var btn = $('#toTop');
@@ -522,7 +583,122 @@
   /* ================================================================== */
   /*  10. FORMULARIO                                                    */
   /* ================================================================== */
+  initSelect();
   initForm();
+
+  /* Desplegable propio. Las <option> nativas no se pueden maquetar en la
+     mayoría de navegadores, así que ocultamos el <select> —que sigue en el
+     DOM guardando el valor— y montamos encima una lista accesible. */
+  function initSelect() {
+    $$('.selectWrap').forEach(function (wrap) {
+      var native = $('select', wrap);
+      if (!native || wrap.classList.contains('is-enhanced')) return;
+
+      var opts   = Array.prototype.slice.call(native.options);
+      var abierto = false;
+      var activo  = native.selectedIndex;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sel__btn';
+      btn.id = native.id + 'Btn';
+      btn.setAttribute('aria-haspopup', 'listbox');
+      btn.setAttribute('aria-expanded', 'false');
+
+      var texto = document.createElement('span');
+      texto.textContent = opts[native.selectedIndex].text;
+      btn.appendChild(texto);
+      btn.insertAdjacentHTML('beforeend',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.4L5.6 9 7 7.6l5 5 5-5L18.4 9z"/></svg>');
+
+      var list = document.createElement('div');
+      list.className = 'sel__list';
+      list.setAttribute('role', 'listbox');
+      list.setAttribute('aria-labelledby', btn.id);
+
+      var items = opts.map(function (o, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'sel__opt' + (i === native.selectedIndex ? ' is-selected' : '');
+        b.setAttribute('role', 'option');
+        b.setAttribute('aria-selected', String(i === native.selectedIndex));
+        b.textContent = o.text;
+        b.addEventListener('click', function () { elegir(i); cerrar(); btn.focus(); });
+        list.appendChild(b);
+        return b;
+      });
+
+      wrap.appendChild(btn);
+      wrap.appendChild(list);
+      wrap.classList.add('is-enhanced');
+
+      /* la etiqueta del campo pasa a señalar al botón, no al select oculto */
+      var lab = document.querySelector('label[for="' + native.id + '"]');
+      if (lab) lab.setAttribute('for', btn.id);
+
+      function elegir(i) {
+        native.selectedIndex = i;
+        native.dispatchEvent(new Event('change', { bubbles: true }));
+        texto.textContent = opts[i].text;
+        items.forEach(function (b, j) {
+          b.classList.toggle('is-selected', j === i);
+          b.setAttribute('aria-selected', String(j === i));
+        });
+        activo = i;
+      }
+
+      function resaltar(i) {
+        activo = Math.max(0, Math.min(i, items.length - 1));
+        items.forEach(function (b, j) { b.classList.toggle('is-active', j === activo); });
+        items[activo].scrollIntoView({ block: 'nearest' });
+      }
+
+      /* El campo entero se eleva mientras el panel está abierto: si no, los
+         campos posteriores del formulario lo tapan (ver nota en el CSS). */
+      var campo = wrap.closest ? wrap.closest('.field') : wrap.parentElement;
+
+      function abrir() {
+        if (abierto) return;
+        abierto = true;
+        wrap.classList.add('is-open');
+        if (campo) campo.classList.add('field--front');
+        btn.setAttribute('aria-expanded', 'true');
+        resaltar(native.selectedIndex);
+      }
+
+      function cerrar() {
+        if (!abierto) return;
+        abierto = false;
+        wrap.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        items.forEach(function (b) { b.classList.remove('is-active'); });
+        /* esperamos a que termine el desvanecido para bajarlo de capa */
+        setTimeout(function () {
+          if (!abierto && campo) campo.classList.remove('field--front');
+        }, 320);
+      }
+
+      btn.addEventListener('click', function () { abierto ? cerrar() : abrir(); });
+
+      btn.addEventListener('keydown', function (e) {
+        var abre = e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
+                   e.key === 'Enter'     || e.key === ' ';
+        if (abre) e.preventDefault();
+        if (!abierto) { if (abre) abrir(); return; }
+
+        if (e.key === 'ArrowDown')      resaltar(activo + 1);
+        else if (e.key === 'ArrowUp')   resaltar(activo - 1);
+        else if (e.key === 'Enter' || e.key === ' ') { elegir(activo); cerrar(); }
+        else if (e.key === 'Escape')    { e.preventDefault(); cerrar(); }
+        else if (e.key === 'Home')      { e.preventDefault(); resaltar(0); }
+        else if (e.key === 'End')       { e.preventDefault(); resaltar(items.length - 1); }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!wrap.contains(e.target)) cerrar();
+      });
+    });
+  }
 
   function initForm() {
     var form = $('#form');
