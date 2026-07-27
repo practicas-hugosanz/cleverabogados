@@ -760,7 +760,11 @@
         return;
       }
       if (!rgpd.checked) {
+        /* Se marca la casilla en rojo, igual que el resto de campos: el aviso
+           de abajo queda lejos de ella y por sí solo no señala el culpable. */
+        rgpd.classList.add('is-error');
         show('Debe aceptar la política de privacidad para continuar.', true);
+        rgpd.focus();
         return;
       }
 

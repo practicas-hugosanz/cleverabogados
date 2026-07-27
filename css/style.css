@@ -891,14 +891,56 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
 }
 .field input.is-error,.field textarea.is-error{ border-bottom-color:#b4453c; }
 
-.check{ flex-direction:row; align-items:flex-start; gap:12px; }
-.check input{ width:16px; height:16px; margin-top:4px; accent-color:var(--navy); flex:none; }
+/* ------------------------------------------------ casilla de conformidad -- */
+/* La casilla del sistema no se puede maquetar por igual en todos los
+   navegadores: Firefox no admite ::before/::after sobre un <input>. Así que la
+   nativa se oculta —sigue existiendo, recibiendo el foco y validando— y se
+   dibuja una propia dentro de la etiqueta, que al llevar for="rgpd" la
+   conmuta igual que si se pulsara la original. */
+.check{ flex-direction:row; align-items:flex-start; position:relative; }
+.check input{
+  position:absolute; top:2px; left:0;
+  width:20px; height:20px; margin:0; opacity:0;
+}
 .check label{
+  display:flex; align-items:flex-start; gap:13px; cursor:pointer;
   font-family:var(--sans);
   font-size:.85rem; font-weight:400; letter-spacing:0; text-transform:none;
   color:var(--muted); line-height:1.6;
 }
 .check label a{ color:var(--navy); border-bottom:1px solid var(--navy-200); }
+.check label a:hover{ border-bottom-color:var(--navy); }
+
+.check__box{
+  flex:none; position:relative; margin-top:2px;
+  width:20px; height:20px; overflow:hidden;
+  border:1px solid var(--navy-200); background:var(--bone-100);
+  transition:border-color .35s var(--ease);
+}
+/* El relleno entra creciendo desde el centro, como el ::before de los botones. */
+.check__box::before{
+  content:''; position:absolute; inset:0; background:var(--navy);
+  transform:scale(0); transition:transform .38s var(--ease);
+}
+/* La marca se dibuja sola: mismo lenguaje que los revelados de la página. */
+.check__box svg{
+  position:absolute; inset:0; width:100%; height:100%;
+  fill:none; stroke:var(--bone); stroke-width:2;
+  stroke-linecap:square; stroke-linejoin:miter;
+  stroke-dasharray:20; stroke-dashoffset:20;
+  transition:stroke-dashoffset .32s var(--ease) .1s;
+}
+
+.check label:hover .check__box{ border-color:var(--navy-400); }
+.check input:checked + label .check__box{ border-color:var(--navy); }
+.check input:checked + label .check__box::before{ transform:scale(1); }
+.check input:checked + label .check__box svg{ stroke-dashoffset:0; }
+
+/* El foco se pinta sobre la casilla dibujada, porque la real es invisible. */
+.check input:focus-visible + label .check__box{
+  outline:2px solid var(--navy); outline-offset:3px;
+}
+.check input.is-error + label .check__box{ border-color:#b4453c; }
 
 .form__note{ margin-top:14px; font-size:.86rem; color:var(--navy); min-height:1.2em; }
 .form__note.is-error{ color:#b4453c; }

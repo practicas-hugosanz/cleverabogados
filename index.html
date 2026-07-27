@@ -789,7 +789,12 @@
         </div>
         <div class="field field--full check" data-anim="row">
           <input type="checkbox" id="rgpd" name="rgpd" required>
-          <label for="rgpd">He leído y acepto el <a href="aviso-legal.html">aviso legal</a> y la <a href="politica-privacidad.html">política de privacidad</a>.</label>
+          <label for="rgpd">
+            <span class="check__box" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M4.5 10.5l3.4 3.4 7.6-7.6"/></svg>
+            </span>
+            <span>He leído y acepto el <a href="aviso-legal.html">aviso legal</a> y la <a href="politica-privacidad.html">política de privacidad</a>.</span>
+          </label>
         </div>
         <!-- Instante de carga: enviar.php descarta lo que se rellena en menos de
              tres segundos. Lo escribe el JS, así que sin JavaScript va vacío y
