@@ -499,6 +499,13 @@
       start: 'top 90%',
       once: true,
       onEnter: function (targets) {
+        /* Si ya se mostraron al entrar por un ancla, no los volvemos a ocultar
+           para animarlos: se vería un parpadeo al subir y volver a bajar. */
+        targets = targets.filter(function (t) {
+          return Number(gsap.getProperty(t, 'opacity')) === 0;
+        });
+        if (!targets.length) return;
+
         gsap.fromTo(targets,
           { opacity: 0, y: vars.y },
           {
@@ -636,15 +643,30 @@
       var lab = document.querySelector('label[for="' + native.id + '"]');
       if (lab) lab.setAttribute('for', btn.id);
 
-      function elegir(i) {
-        native.selectedIndex = i;
-        native.dispatchEvent(new Event('change', { bubbles: true }));
+      function pintar(i) {
         texto.textContent = opts[i].text;
         items.forEach(function (b, j) {
           b.classList.toggle('is-selected', j === i);
           b.setAttribute('aria-selected', String(j === i));
         });
         activo = i;
+      }
+
+      function elegir(i) {
+        native.selectedIndex = i;
+        native.dispatchEvent(new Event('change', { bubbles: true }));
+        pintar(i);
+      }
+
+      /* Tras enviar la consulta el formulario se vacía con reset(), pero eso
+         sólo devuelve el <select> nativo —que está oculto— a su opción inicial:
+         la lista propia seguiría mostrando la materia anterior. El setTimeout
+         es necesario porque el evento «reset» se dispara antes de que los
+         campos hayan cambiado de valor. */
+      if (native.form) {
+        native.form.addEventListener('reset', function () {
+          setTimeout(function () { pintar(native.selectedIndex); }, 0);
+        });
       }
 
       function resaltar(i) {
@@ -703,10 +725,17 @@
   function initForm() {
     var form = $('#form');
     if (!form) return;
-    var note = $('#formNote');
+    var note   = $('#formNote');
+    var boton  = $('button[type="submit"]', form);
+    var sello  = $('#formT');
+    var enviando = false;
+
+    /* Marca de tiempo para el filtro antispam del servidor. */
+    if (sello) sello.value = String(Math.floor(Date.now() / 1000));
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (enviando) return;
 
       var nombre  = $('#nombre');
       var email   = $('#email');
@@ -735,21 +764,44 @@
         return;
       }
 
-      /* Sin backend: se abre el cliente de correo con la consulta redactada. */
-      var cuerpo =
-        'Nombre: '   + nombre.value.trim()  + '\n' +
-        'Email: '    + email.value.trim()   + '\n' +
-        'Teléfono: ' + (tel.value.trim() || '—') + '\n' +
-        'Materia: '  + materia.value        + '\n\n' +
-        mensaje.value.trim();
+      /* El envío lo hace enviar.php en el propio servidor. La cabecera
+         X-Requested-With es la que hace que conteste en JSON en lugar de
+         redirigir, para no sacar al visitante de la página. */
+      enviando = true;
+      bloquear(true, 'Enviando…');
+      show('Enviando su consulta…', false);
 
-      window.location.href =
-        'mailto:info@cleverabogados.es' +
-        '?subject=' + encodeURIComponent('Consulta web — ' + materia.value) +
-        '&body='    + encodeURIComponent(cuerpo);
-
-      show('Abriendo su gestor de correo… Si no se abre, escríbanos a info@cleverabogados.es', false);
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(function (r) { return r.json().catch(function () { return null; }); })
+      .then(function (data) {
+        if (data && data.ok) {
+          form.reset();
+          if (sello) sello.value = String(Math.floor(Date.now() / 1000));
+          show(data.mensaje, false);
+          bloquear(true, 'Consulta enviada');
+          return;
+        }
+        show((data && data.mensaje) || 'No hemos podido enviar la consulta. Escríbanos a info@cleverabogados.es', true);
+        enviando = false;
+        bloquear(false, 'Enviar consulta');
+      })
+      .catch(function () {
+        /* Sin conexión o PHP caído: se le da una vía alternativa, no un error seco. */
+        show('No hay conexión con el servidor. Llámenos al 966 300 232 o escriba a info@cleverabogados.es', true);
+        enviando = false;
+        bloquear(false, 'Enviar consulta');
+      });
     });
+
+    function bloquear(off, texto) {
+      if (!boton) return;
+      boton.disabled = off;
+      boton.textContent = texto;
+    }
 
     function show(msg, isError) {
       if (!note) return;
@@ -763,8 +815,53 @@
     });
   }
 
+  /* ================================================================== */
+  /*  ENTRADA POR ENLACE CON ANCLA                                      */
+  /* ================================================================== */
+  /* Al abrir la web directamente en una sección —cleverabogados.es/#contacto,
+     un enlace compartido por WhatsApp, un sitelink de Google— el navegador
+     coloca la página ahí de un salto. Todo lo que queda por encima nunca
+     «entra» en pantalla, así que el onEnter de ScrollTrigger.batch no llega a
+     dispararse y esos bloques se quedan a opacidad 0 de forma permanente: con
+     #contacto no se veían ni el teléfono, ni el correo, ni el formulario.
+
+     Los mostramos ya puestos, sin animación. El revelado es un adorno; que se
+     vea el formulario de contacto no lo es. */
+  function revelarLoQueYaEstaEnPantalla() {
+    var limite = window.innerHeight * 0.9;   /* el mismo umbral que start:'top 90%' */
+
+    $$('[data-anim]').forEach(function (el) {
+      if (el.dataset.anim === 'lines') return;
+      if (el.getBoundingClientRect().top >= limite) return;
+      if (Number(gsap.getProperty(el, 'opacity')) > 0) return;
+      gsap.set(el, { opacity: 1, y: 0 });
+    });
+
+    /* titulares con máscara: su span sigue desplazado fuera del recorte */
+    $$('[data-anim="lines"] > span, .secTitle > span').forEach(function (span) {
+      var el = span.parentNode;
+      if (el.getBoundingClientRect().top >= limite) return;
+      if (Number(gsap.getProperty(span, 'yPercent')) === 0) return;
+      gsap.set(span, { yPercent: 0, opacity: 1 });
+    });
+  }
+
+  /* Sólo si la página ha arrancado desplazada: a scroll 0 manda la animación
+     de entrada del hero y no hay que tocar nada. */
+  function siEntroPorAncla() {
+    if (window.scrollY > 0) revelarLoQueYaEstaEnPantalla();
+  }
+
+  window.addEventListener('hashchange', function () {
+    setTimeout(siEntroPorAncla, 100);
+  });
+
   /* recalcular posiciones cuando cargan fuentes e imágenes */
-  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    /* tras el refresh el navegador puede reajustar el salto del ancla */
+    setTimeout(siEntroPorAncla, 100);
+  });
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   }

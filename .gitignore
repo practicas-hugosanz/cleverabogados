@@ -1,5 +1,6 @@
-# Extracción de las webs antiguas: se puede regenerar descomprimiendo los ZIP,
-# así que no tiene sentido versionar 85 archivos de WordPress.
+# Material de origen, no forma parte de la entrega: los ZIP de las dos webs
+# antiguas, su extracción (85 archivos de WordPress) y el logotipo original a
+# tamaño completo, del que salió img/logo.png. Nada de esto se sube al hosting.
 /_src/
 
 # Ajustes locales de Claude Code

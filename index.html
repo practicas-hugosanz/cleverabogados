@@ -743,7 +743,15 @@
         </a>
       </div>
 
-      <form class="form" id="form" novalidate>
+      <!-- Se envía por fetch a enviar.php; el action y el method están puestos
+           para que siga funcionando con JavaScript desactivado. -->
+      <form class="form" id="form" action="enviar.php" method="post" novalidate>
+        <!-- Señuelo antispam: oculto por CSS, sólo lo rellenan los robots.
+             aria-hidden y tabindex lo sacan del recorrido de teclado y lectores. -->
+        <div class="hp" aria-hidden="true">
+          <label for="web">No rellene este campo</label>
+          <input type="text" id="web" name="web" tabindex="-1" autocomplete="off">
+        </div>
         <div class="field" data-anim="row">
           <label for="nombre">Nombre y apellidos</label>
           <input type="text" id="nombre" name="nombre" required autocomplete="name">
@@ -783,6 +791,10 @@
           <input type="checkbox" id="rgpd" name="rgpd" required>
           <label for="rgpd">He leído y acepto el <a href="aviso-legal.html">aviso legal</a> y la <a href="politica-privacidad.html">política de privacidad</a>.</label>
         </div>
+        <!-- Instante de carga: enviar.php descarta lo que se rellena en menos de
+             tres segundos. Lo escribe el JS, así que sin JavaScript va vacío y
+             la comprobación sencillamente no se aplica. -->
+        <input type="hidden" id="formT" name="t" value="">
         <div class="field field--full" data-anim="row">
           <button type="submit" class="btn btn--full">Enviar consulta</button>
           <p class="form__note" id="formNote" role="status"></p>

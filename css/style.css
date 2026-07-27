@@ -1266,6 +1266,25 @@ body.contact-visible .toTop{
 
 .e404__cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:clamp(30px,4vw,44px); }
 
+/* ================================================== CONFIRMACIÓN DE ENVÍO = */
+/* Comparte el armazón de .e404: mismo aire, mismos titulares. */
+.gracias__icono{ color:var(--navy); line-height:0; margin-bottom:22px; }
+.gracias__nota{
+  margin-top:clamp(30px,4vw,44px); padding-top:clamp(22px,2.6vw,30px);
+  border-top:1px solid var(--bone-300);
+  max-width:62ch; font-size:.9rem; color:var(--muted); line-height:1.8;
+}
+.gracias__nota a{ color:var(--navy); border-bottom:1px solid var(--navy-200); }
+.gracias__nota a:hover{ border-bottom-color:var(--navy); }
+.gracias__volver{ margin-top:18px; font-size:.92rem; }
+
+/* Señuelo antispam: fuera de la vista pero accesible al robot que lee el DOM.
+   No se usa display:none porque algunos robots ya lo detectan y lo saltan. */
+.hp{
+  position:absolute; left:-9999px; width:1px; height:1px;
+  overflow:hidden; opacity:0; pointer-events:none;
+}
+
 /* --------------------------------------------------- foco visible global -- */
 a:focus-visible, button:focus-visible, summary:focus-visible,
 input:focus-visible, select:focus-visible, textarea:focus-visible{
