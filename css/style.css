@@ -303,10 +303,13 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
   gap:clamp(36px,5vw,80px); align-items:center;
 }
 
+/* El titular es una frase larga de tres líneas, no dos palabras: al tamaño de
+   antes (4.3rem) cada línea se partía sola dentro de su propia máscara y el
+   revelado escalonado dejaba de leerse como tal. */
 .hero__title{
   font-family:var(--display);
-  font-size:clamp(2.3rem,4.4vw,4.3rem);
-  font-weight:300; line-height:1.12; letter-spacing:-.025em;
+  font-size:clamp(1.6rem,2.95vw,2.7rem);
+  font-weight:300; line-height:1.2; letter-spacing:-.02em;
   color:var(--navy-900);
 }
 /* padding + margen negativo: la máscara no corta los trazos descendentes */
@@ -319,8 +322,9 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
 
 .hero__lead{
   max-width:54ch; margin-top:clamp(22px,3vw,32px);
-  color:var(--muted); font-size:1rem; line-height:1.82;
+  display:grid; gap:14px;
 }
+.hero__lead p{ color:var(--muted); font-size:1rem; line-height:1.82; }
 .hero__lead strong{ color:var(--navy); font-weight:600; }
 
 .hero__cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:clamp(28px,4vw,42px); }
@@ -391,6 +395,11 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
   margin-top:16px; max-width:62ch;
   color:var(--muted); font-size:1rem; line-height:1.82;
 }
+.secLead a{
+  color:var(--navy); border-bottom:1px solid var(--navy-200);
+  transition:border-color .3s var(--ease);
+}
+.secLead a:hover{ border-color:var(--navy); }
 .secHead--light .secTitle{ color:var(--bone); }
 
 /* ---------------------------------------------------------------- firma -- */
@@ -425,6 +434,16 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
 }
 .firma__legal p{ font-size:.96rem; line-height:1.8; color:var(--navy-100); max-width:64ch; }
 .firma__legal strong{ color:var(--bone); font-weight:600; }
+
+/* Cita del panel: mismo bloque que antes llevaba los datos registrales, ahora
+   con voz propia. El remate en claro es la segunda mitad de la frase. */
+.firma__cita p{
+  font-family:var(--display);
+  font-size:clamp(1.05rem,1.9vw,1.5rem);
+  font-weight:300; line-height:1.55; letter-spacing:-.01em;
+  color:var(--navy-100); max-width:46ch;
+}
+.firma__cita em{ font-style:normal; font-weight:500; color:var(--bone); }
 
 /* --------------------------------------------------------------- stats --- */
 .stats{
@@ -565,12 +584,30 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
   display:block; font-weight:600; color:var(--navy-800); letter-spacing:.005em;
 }
 
+/* --------------------------------------------------------------- cantera -- */
+.cantera{
+  margin-top:clamp(44px,6vw,80px);
+  padding:clamp(26px,3.4vw,42px);
+  border:1px solid var(--bone-300);
+  display:grid; grid-template-columns:1fr auto; gap:clamp(20px,3vw,44px);
+  align-items:center;
+}
+.cantera h3{
+  font-family:var(--display); font-size:clamp(1.2rem,2vw,1.55rem);
+  font-weight:500; letter-spacing:-.01em; color:var(--navy-900); margin-bottom:10px;
+}
+.cantera p{ color:var(--muted); font-size:.96rem; line-height:1.8; max-width:64ch; }
+.cantera .btn{ white-space:nowrap; }
+
 /* ------------------------------------------------------------------ why -- */
 .why{ background:var(--navy-900); color:var(--bone); }
 .whyGrid{
   display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
   background:rgba(242,240,239,.13); border:1px solid rgba(242,240,239,.13);
 }
+/* Son cinco tarjetas en una rejilla de tres: sin esto la sexta celda queda
+   vacía y sólo se ve el filete de la rejilla rodeando un hueco. */
+.whyGrid > :last-child:nth-child(3n+2){ grid-column:span 2; }
 .why__item{
   background:var(--navy-900); padding:clamp(26px,3vw,42px);
   transition:background-color .5s var(--ease);
@@ -581,6 +618,40 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
   font-weight:500; letter-spacing:-.01em; color:var(--bone); margin-bottom:12px;
 }
 .why__item p{ font-size:.92rem; color:var(--navy-300); line-height:1.7; }
+
+/* ---------------------------------------------------------------- casos -- */
+.casosGrid{
+  margin-top:clamp(34px,4.5vw,56px);
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--bone-300); border:1px solid var(--bone-300);
+}
+.caso{
+  background:var(--bone); padding:clamp(24px,2.6vw,36px);
+  display:flex; flex-direction:column; gap:12px;
+}
+.caso__area{
+  font-family:var(--display);
+  font-size:.7rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--navy-400);
+}
+.caso h3{
+  font-family:var(--display); font-size:clamp(1.1rem,1.7vw,1.32rem);
+  font-weight:500; line-height:1.3; letter-spacing:-.01em; color:var(--navy-900);
+}
+.caso p{ color:var(--muted); font-size:.94rem; line-height:1.75; }
+/* El resultado se ancla abajo para que la línea quede a la misma altura en
+   todas las tarjetas, tengan el relato más largo o más corto. */
+.caso .caso__res{
+  margin-top:auto; padding-top:16px;
+  border-top:1px solid var(--bone-300);
+  color:var(--navy-800);
+}
+.caso__res span{
+  display:block; margin-bottom:6px;
+  font-family:var(--display);
+  font-size:.68rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--navy-400);
+}
 
 /* ======================================================= OPINIONES GOOGLE = */
 .reviews{ background:var(--bone-100); }
@@ -1336,7 +1407,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{
 /* ================================================================ responsive */
 @media (max-width:1180px){
   .areaGrid{ grid-template-columns:repeat(2,1fr); }
+  .casosGrid{ grid-template-columns:repeat(2,1fr); }
   .whyGrid{ grid-template-columns:repeat(2,1fr); }
+  /* con dos columnas la quinta tarjeta se queda sola en su fila */
+  .whyGrid > :last-child:nth-child(odd){ grid-column:span 2; }
   .footer__top{ grid-template-columns:1fr 1fr; }
   .zones__grid{ grid-template-columns:repeat(3,1fr); }
 }
@@ -1361,6 +1435,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{
 
   .member,.member--rev{ grid-template-columns:1fr; direction:ltr; }
   .member__photo{ max-width:440px; }
+
+  .cantera{ grid-template-columns:1fr; justify-items:start; }
 
   .office__grid{ grid-template-columns:1fr; }
   .office__media img{ min-height:260px; aspect-ratio:16/9; }
@@ -1392,7 +1468,15 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{
   .areaGrid{ grid-template-columns:1fr; }
   /* en una sola columna el alto mínimo sólo dejaba hueco vacío al pie */
   .area{ min-height:0; }
+  .casosGrid{ grid-template-columns:1fr; }
   .whyGrid{ grid-template-columns:1fr; }
+  /* En una sola columna, «span 2» inventaría una segunda columna vacía y la
+     página se desplazaría en horizontal. Los dos selectores van repetidos tal
+     cual: las medias no suman especificidad, así que un `.whyGrid > :last-child`
+     a secas perdería contra el `:nth-child(odd)` de la media de 1180 px. */
+  .whyGrid > :last-child:nth-child(odd),
+  .whyGrid > :last-child:nth-child(3n+2){ grid-column:auto; }
+  .cantera .btn{ width:100%; }
   /* apiladas de una en una ocupaban media pantalla de scroll para cuatro cifras */
   .stats{ grid-template-columns:repeat(2,1fr); }
   .stat{ padding:26px 14px; }

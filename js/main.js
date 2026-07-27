@@ -789,13 +789,13 @@
           bloquear(true, 'Consulta enviada');
           return;
         }
-        show((data && data.mensaje) || 'No hemos podido enviar la consulta. Escríbanos a info@cleverabogados.es', true);
+        show((data && data.mensaje) || 'No hemos podido enviar la consulta. Escríbanos a consultas@cleverabogados.es', true);
         enviando = false;
         bloquear(false, 'Enviar consulta');
       })
       .catch(function () {
         /* Sin conexión o PHP caído: se le da una vía alternativa, no un error seco. */
-        show('No hay conexión con el servidor. Llámenos al 966 300 232 o escriba a info@cleverabogados.es', true);
+        show('No hay conexión con el servidor. Llámenos al 966 300 232 o escriba a consultas@cleverabogados.es', true);
         enviando = false;
         bloquear(false, 'Enviar consulta');
       });

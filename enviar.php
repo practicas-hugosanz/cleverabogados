@@ -5,7 +5,10 @@
    Pensado para el hosting web de IONOS (PHP 7.4 o superior, función mail()
    disponible sin configurar SMTP).
 
-   ANTES DE PUBLICAR, dos cosas en el panel de IONOS:
+   ANTES DE PUBLICAR, tres cosas en el panel de IONOS:
+
+   0. Crear el buzón DESTINO (consultas@cleverabogados.es). Si no existe, las
+      consultas del formulario se pierden sin dar ningún aviso.
 
    1. Crear el buzón REMITENTE de más abajo. IONOS sólo acepta enviar correo
       cuyo «From» pertenezca a un dominio alojado en su servidor; si se pone
@@ -21,7 +24,7 @@
 
 /* ------------------------------------------------------------- ajustes -- */
 
-$DESTINO   = 'info@cleverabogados.es';   // quién recibe las consultas
+$DESTINO   = 'consultas@cleverabogados.es';   // quién recibe las consultas
 $REMITENTE = 'web@cleverabogados.es';    // buzón del dominio (ver nota 1)
 $NOMBRE_DE = 'Web Clever Abogados';      // nombre visible del remitente
 
