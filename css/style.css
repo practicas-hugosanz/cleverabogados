@@ -303,13 +303,16 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
   gap:clamp(36px,5vw,80px); align-items:center;
 }
 
-/* El titular es una frase larga de tres líneas, no dos palabras: al tamaño de
-   antes (4.3rem) cada línea se partía sola dentro de su propia máscara y el
-   revelado escalonado dejaba de leerse como tal. */
+/* Dos frases completas, no dos palabras sueltas: la línea larga mide 33
+   caracteres y necesita 14,7 em de ancho, así que el tope está puesto en el
+   tamaño mayor con el que aún cabe entera en su máscara (~41 px sobre una
+   columna de 602 px). Por encima se parte sola y el revelado escalonado deja
+   de leerse como tal. El coeficiente en vw está calculado para que tampoco se
+   parta en los anchos intermedios, donde la columna se encoge con la ventana. */
 .hero__title{
   font-family:var(--display);
-  font-size:clamp(1.6rem,2.95vw,2.7rem);
-  font-weight:300; line-height:1.2; letter-spacing:-.02em;
+  font-size:clamp(1.75rem,3.35vw,2.55rem);
+  font-weight:300; line-height:1.16; letter-spacing:-.025em;
   color:var(--navy-900);
 }
 /* padding + margen negativo: la máscara no corta los trazos descendentes */
@@ -322,9 +325,8 @@ body.menu-open .nav__actions > .btn{ pointer-events:none; }
 
 .hero__lead{
   max-width:54ch; margin-top:clamp(22px,3vw,32px);
-  display:grid; gap:14px;
+  color:var(--muted); font-size:1rem; line-height:1.82;
 }
-.hero__lead p{ color:var(--muted); font-size:1rem; line-height:1.82; }
 .hero__lead strong{ color:var(--navy); font-weight:600; }
 
 .hero__cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:clamp(28px,4vw,42px); }
